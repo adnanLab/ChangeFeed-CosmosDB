@@ -1,0 +1,62 @@
+Step 1
+Resource groups = changefeedrg
+
+Step 2
+Azure Cosmos DB account = changefeeddbaccount
+URI = 
+PRIMARY KEY = 
+PRIMARY CONNECTION STRING = 
+Azure Cosmos DB Name = changefeeddb
+Azure Cosmos DB collection name = changefeeddbcollection
+Azure Cosmos DB leases collection = leases
+
+Step 3
+Storage account name = changefeeddbstorage
+Key = 
+Connection string = 
+
+Step 4
+Event Hubs Namespace = changefeed-eventhub
+Event Hubs Instance Name = event-hub1
+
+RootManageSharedAccessKey
+Connection string–primary key= 
+
+Event Hubs Instance Name = changefeed-eventhub
+
+
+
+Step 5
+Stream Analytics job = changefeedstreamjob
+input = input
+output 
+1. averagePriceOutput
+2. incomingRevenueOutput
+3. uniqueVisitorCountOutput
+
+Query
+
+  /*REVENUE*/
+ SELECT System.TimeStamp AS Time, SUM(Price)
+ INTO incomingRevenueOutput
+ FROM input
+ WHERE Action = 'Purchased'
+ GROUP BY TumblingWindow(hour, 1)
+
+ /*UNIQUE VISITORS*/
+ SELECT System.TimeStamp AS Time, COUNT(DISTINCT CartID) as uniqueVisitors
+ INTO uniqueVisitorCountOutput
+ FROM input
+ GROUP BY TumblingWindow(second, 5)
+ 
+ 
+ /*AVERAGE PRICE*/      
+ SELECT System.TimeStamp AS Time, Action, AVG(Price)  
+ INTO averagePriceOutput  
+ FROM input  
+ GROUP BY Action, TumblingWindow(second,5) 
+
+step 6
+Power BI 
+
+
