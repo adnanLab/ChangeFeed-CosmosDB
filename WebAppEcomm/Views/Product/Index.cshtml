@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebAppEcomm.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Products catalog </h1>
+
+<p>
+    <a asp-action="Create">Create New item here</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CartID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var Product in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Product.id)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => Product.Item)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Product.Action)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Product.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Product.CartID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id= Product.id+"|"+Product.Item}) |
+                @Html.ActionLink("Details", "Details", new { id = Product.id + "|" + Product.Item }) |
+                @Html.ActionLink("Delete", "Delete", new { id = Product.id + "|" + Product.Item })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
