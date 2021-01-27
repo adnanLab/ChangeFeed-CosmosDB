@@ -11,7 +11,7 @@ Microsoft Azure Subscription
 Microsoft Power BI Account
 
 
-Please refer to the youtube video here:- (************). How to setup these steps.
+Please refer to the youtube video here:- (https://youtu.be/e2SUPeTM59c). How to setup these steps.
 
 Step 1: Creating a database and collection to load data.
 Step 2: Creating a leases collection.
